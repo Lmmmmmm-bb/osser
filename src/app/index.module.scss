@@ -1,0 +1,39 @@
+.wrapper {
+  height: 100%;
+  position: relative;
+  overflow: hidden;
+  background-color: #020112;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-image: radial-gradient(
+      ellipse at bottom,
+      #532cad 0%,
+      #020112 50%
+    );
+    opacity: 0.4;
+    filter: blur(20px);
+  }
+
+  &::after {
+    content: '';
+    position: absolute;
+    top: calc(var(--y, 0) * 1px - 30px);
+    left: calc(var(--x, 0) * 1px - 30px);
+    width: 60px;
+    height: 60px;
+    background: radial-gradient(white, #3984ff00 80%);
+    opacity: 0;
+    transition: opacity 0.2s;
+    filter: blur(20px);
+  }
+
+  &:hover::after {
+    opacity: 0.4;
+  }
+}
