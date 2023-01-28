@@ -23,15 +23,14 @@
   &::after {
     content: '';
     position: absolute;
-    top: calc(var(--y, 0) * 1px - 30px);
-    left: calc(var(--x, 0) * 1px - 30px);
-    width: 60px;
-    height: 60px;
-    background: radial-gradient(white, #3984ff00 80%);
-    opacity: 0;
-    transition: opacity 0.2s;
-    filter: blur(20px);
-    transition: opacity 0.3s ease-in-out;
+    top: calc(var(--y, 0) * 1px - 8px);
+    left: calc(var(--x, 0) * 1px - 8px);
+    filter: blur(3px);
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background-color: #fff;
+    mix-blend-mode: difference;
   }
 
   &:hover::after {
