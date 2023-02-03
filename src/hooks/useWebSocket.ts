@@ -7,7 +7,7 @@ export const useWebSocket = (id: string) => {
   const [list, setList] = useState<ClientPosition[]>([]);
 
   useEffect(() => {
-    const _socket = new WebSocket(`ws://localhost:8080/${id}`);
+    const _socket = new WebSocket(`ws://${import.meta.env.OSSER_DOMAIN}/${id}`);
     _socket.addEventListener('message', (event: MessageEvent<string>) => {
       setList(JSON.parse(event.data));
     });
