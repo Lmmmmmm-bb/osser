@@ -10,9 +10,10 @@
     "lint:format": "prettier --write .",
     "lint:fix": "eslint --ext .tsx,.ts,.js . --fix",
     "prepare": "husky install",
-    "style:watch": "typed-scss-modules src --watch --ignore \"**/index.scss\""
+    "style:watch": "typed-scss-modules **/index.module.scss --watch"
   },
   "dependencies": {
+    "nanoid": "^4.0.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "sass": "^1.57.1"

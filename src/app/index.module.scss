@@ -30,10 +30,12 @@
     height: 16px;
     border-radius: 50%;
     background-color: #fff;
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
     mix-blend-mode: difference;
   }
 
   &:hover::after {
-    opacity: 0.4;
+    opacity: 0.5;
   }
 }

@@ -15,6 +15,7 @@ specifiers:
   eslint-plugin-react: ^7.32.0
   husky: ^8.0.3
   lint-staged: ^13.1.0
+  nanoid: ^4.0.0
   prettier: ^2.8.2
   react: ^18.2.0
   react-dom: ^18.2.0
@@ -24,6 +25,7 @@ specifiers:
   vite: ^4.0.4
 
 dependencies:
+  nanoid: 4.0.0
   react: 18.2.0
   react-dom: 18.2.0_react@18.2.0
   sass: 1.57.1
@@ -2984,6 +2986,12 @@ packages:
     engines: {node: ^10 || ^12 || ^13.7 || ^14 || >=15.0.1}
     hasBin: true
     dev: true
+
+  /nanoid/4.0.0:
+    resolution: {integrity: sha512-IgBP8piMxe/gf73RTQx7hmnhwz0aaEXYakvqZyE302IXW3HyVNhdNGC+O2MwMAVhLEnvXlvKtGbtJf6wvHihCg==}
+    engines: {node: ^14 || ^16 || >=18}
+    hasBin: true
+    dev: false
 
   /natural-compare-lite/1.4.0:
     resolution: {integrity: sha512-Tj+HTDSJJKaZnfiuw+iaF9skdPpTo2GtEly5JHnWV/hfv2Qj/9RKsGISQtLh2ox3l5EAGw487hnBee0sIJ6v2g==}
