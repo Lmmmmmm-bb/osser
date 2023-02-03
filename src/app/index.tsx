@@ -1,6 +1,7 @@
 import { nanoid } from 'nanoid';
-import { FC, useRef, MouseEvent } from 'react';
+import { FC, useRef, MouseEvent, useCallback } from 'react';
 
+import { throttle } from '~/utils';
 import { Mouse } from '~/components';
 import { useWebSocket } from '~/hooks';
 
@@ -15,6 +16,8 @@ const App: FC = () => {
 
   const { list, send } = useWebSocket(id);
 
+  const throttledSend = useCallback(throttle(send, 100), [send]);
+
   const handleMouseMove = (e: MouseEvent<HTMLDivElement>) => {
     if (wrapperRef.current) {
       const { x, y } = wrapperRef.current.getBoundingClientRect();
@@ -24,7 +27,7 @@ const App: FC = () => {
       wrapperRef.current.style.setProperty('--x', String(nextPosition.x));
       wrapperRef.current.style.setProperty('--y', String(nextPosition.y));
       // send mouse position
-      send(nextPosition);
+      throttledSend(nextPosition);
     }
   };
 
