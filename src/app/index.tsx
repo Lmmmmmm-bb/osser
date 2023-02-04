@@ -16,7 +16,7 @@ const App: FC = () => {
 
   const { list, send } = useWebSocket(id);
 
-  const throttledSend = useCallback(throttle(send, 100), [send]);
+  const throttledSend = useCallback(throttle(send, 50), [send]);
 
   const handleMouseMove = (e: MouseEvent<HTMLDivElement>) => {
     if (wrapperRef.current) {

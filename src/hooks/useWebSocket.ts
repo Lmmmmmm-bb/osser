@@ -1,13 +1,14 @@
 import { useEffect, useRef, useState } from 'react';
 
 import { ClientPosition } from '~/types';
+import { getWebSocketDomain } from '~/utils';
 
 export const useWebSocket = (id: string) => {
   const socket = useRef<WebSocket>();
   const [list, setList] = useState<ClientPosition[]>([]);
 
   useEffect(() => {
-    const _socket = new WebSocket(`ws://${import.meta.env.OSSER_DOMAIN}/${id}`);
+    const _socket = new WebSocket(`${getWebSocketDomain()}/${id}`);
     _socket.addEventListener('message', (event: MessageEvent<string>) => {
       setList(JSON.parse(event.data));
     });
