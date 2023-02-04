@@ -1,3 +1,4 @@
+import { toast } from 'react-hot-toast';
 import { useEffect, useRef, useState } from 'react';
 
 import { ClientPosition } from '~/types';
@@ -8,15 +9,28 @@ export const useWebSocket = (id: string) => {
   const [list, setList] = useState<ClientPosition[]>([]);
 
   useEffect(() => {
-    const _socket = new WebSocket(`${getWebSocketDomain()}/${id}`);
-    _socket.addEventListener('message', (event: MessageEvent<string>) => {
+    const socketErrorListener = () => {
+      toast.error(
+        'Failed to connect to the server.\nPlease refresh to retry.',
+        {
+          duration: 5000
+        }
+      );
+    };
+
+    const socketMessageListener = (event: MessageEvent<string>) =>
       setList(JSON.parse(event.data));
-    });
+
+    const _socket = new WebSocket(`${getWebSocketDomain()}/${id}`);
+    _socket.addEventListener('error', socketErrorListener);
+    _socket.addEventListener('message', socketMessageListener);
 
     socket.current = _socket;
 
     return () => {
-      socket.current?.close();
+      _socket.removeEventListener('error', socketErrorListener);
+      _socket.removeEventListener('message', socketMessageListener);
+      _socket.close();
     };
   }, []);
 

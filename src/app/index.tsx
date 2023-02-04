@@ -1,4 +1,5 @@
 import { nanoid } from 'nanoid';
+import { Toaster } from 'react-hot-toast';
 import { FC, useRef, MouseEvent, useCallback } from 'react';
 
 import { throttle } from '~/utils';
@@ -40,18 +41,21 @@ const App: FC = () => {
   }, [throttledSend]);
 
   return (
-    <div
-      ref={wrapperRef}
-      className={styles.wrapper}
-      onMouseMove={handleMouseMove}
-      onMouseOut={handleMouseOut}
-    >
-      {list
-        .filter((item) => item.id !== id)
-        .map((item) => (
-          <Mouse key={item.id} position={item} />
-        ))}
-    </div>
+    <>
+      <div
+        ref={wrapperRef}
+        className={styles.wrapper}
+        onMouseMove={handleMouseMove}
+        onMouseOut={handleMouseOut}
+      >
+        {list
+          .filter((item) => item.id !== id)
+          .map((item) => (
+            <Mouse key={item.id} position={item} />
+          ))}
+      </div>
+      <Toaster />
+    </>
   );
 };
 
