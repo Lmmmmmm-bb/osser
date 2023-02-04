@@ -1,0 +1,15 @@
+.input {
+  height: 32px;
+  padding: 0 12px;
+  box-sizing: border-box;
+  font-size: 14px;
+  font-family: 'Varela Round', 'PingFang SC', -apple-system, sans-serif;
+  outline: none;
+  border: 1px solid #eaeaea;
+  border-radius: 5px;
+  transition: border-color 0.15s ease;
+
+  &:focus {
+    border-color: #666;
+  }
+}
