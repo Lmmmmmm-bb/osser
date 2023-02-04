@@ -7,36 +7,46 @@ import { useWebSocket } from '~/hooks';
 
 import { Position } from '../types';
 import styles from './index.module.scss';
+import { defaultPosition } from './config';
 
 const id = nanoid();
 
 const App: FC = () => {
   const wrapperRef = useRef<HTMLDivElement>(null);
-  const positionRef = useRef<Position>({ x: -9999, y: -9999 });
+  const positionRef = useRef<Position>(defaultPosition);
 
   const { list, send } = useWebSocket(id);
 
   const throttledSend = useCallback(throttle(send, 50), [send]);
 
-  const handleMouseMove = (e: MouseEvent<HTMLDivElement>) => {
-    if (wrapperRef.current) {
-      const { x, y } = wrapperRef.current.getBoundingClientRect();
-      const nextPosition = { id, x: e.clientX - x, y: e.clientY - y };
-      // update mouse position
-      positionRef.current = nextPosition;
-      wrapperRef.current.style.setProperty('--x', String(nextPosition.x));
-      wrapperRef.current.style.setProperty('--y', String(nextPosition.y));
-      // send mouse position
-      throttledSend(nextPosition);
-    }
-  };
+  const handleMouseMove = useCallback(
+    (e: MouseEvent<HTMLDivElement>) => {
+      if (wrapperRef.current) {
+        const { x, y } = wrapperRef.current.getBoundingClientRect();
+        const nextPosition = { id, x: e.clientX - x, y: e.clientY - y };
+        // update mouse position
+        positionRef.current = nextPosition;
+        wrapperRef.current.style.setProperty('--x', String(nextPosition.x));
+        wrapperRef.current.style.setProperty('--y', String(nextPosition.y));
+        // send mouse position
+        throttledSend(nextPosition);
+      }
+    },
+    [throttledSend]
+  );
+
+  const handleMouseOut = useCallback(() => {
+    throttledSend({ id, ...defaultPosition });
+  }, [throttledSend]);
 
   return (
     <div
       ref={wrapperRef}
       className={styles.wrapper}
       onMouseMove={handleMouseMove}
+      onMouseOut={handleMouseOut}
     >
+      {/* TODO: filter self mouse */}
       {list.map((item) => (
         <Mouse key={item.id} position={item} />
       ))}
