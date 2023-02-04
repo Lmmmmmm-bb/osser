@@ -46,10 +46,11 @@ const App: FC = () => {
       onMouseMove={handleMouseMove}
       onMouseOut={handleMouseOut}
     >
-      {/* TODO: filter self mouse */}
-      {list.map((item) => (
-        <Mouse key={item.id} position={item} />
-      ))}
+      {list
+        .filter((item) => item.id !== id)
+        .map((item) => (
+          <Mouse key={item.id} position={item} />
+        ))}
     </div>
   );
 };
