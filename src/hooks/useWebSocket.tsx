@@ -2,11 +2,12 @@ import { toast } from 'react-hot-toast';
 import { useCallback, useEffect, useRef, useState } from 'react';
 
 import { ClientPosition } from '~/types';
-import { Notification } from '~/components';
 import { getWebSocketDomain } from '~/utils';
+import { Loading, Notification } from '~/components';
 
 export const useWebSocket = (id: string) => {
   const socket = useRef<WebSocket>();
+  const toastId = useRef<string>();
   const [list, setList] = useState<ClientPosition[]>([]);
 
   const socketMessageListener = useCallback(
@@ -14,8 +15,43 @@ export const useWebSocket = (id: string) => {
     []
   );
 
+  const socketOpenListener = useCallback(() => {
+    toast.dismiss(toastId.current);
+    toastId.current = undefined;
+  }, []);
+
+  const socketErrorListener = useCallback(() => {
+    toast.dismiss(toastId.current);
+    toastId.current = toast.custom((t) => (
+      <Notification
+        type='error'
+        confirmText='Retry'
+        toast={t}
+        onConfirm={() => {
+          reconnect();
+          showLoadingToast();
+        }}
+      >
+        Failed to connect to server.
+      </Notification>
+    ));
+  }, []);
+
+  const showLoadingToast = useCallback(() => {
+    toast.dismiss(toastId.current);
+    toastId.current = toast.custom((t) => (
+      <Notification hiddenActions toast={t}>
+        <div style={{ display: 'flex' }}>
+          <span style={{ flex: 9 }}>Trying to connect to server...</span>
+          <Loading style={{ flex: 1 }} />
+        </div>
+      </Notification>
+    ));
+  }, []);
+
   const initSocket = () => {
     const _socket = new WebSocket(`${getWebSocketDomain()}/${id}`);
+    _socket.addEventListener('open', socketOpenListener);
     _socket.addEventListener('error', socketErrorListener);
     _socket.addEventListener('message', socketMessageListener);
 
@@ -24,6 +60,7 @@ export const useWebSocket = (id: string) => {
 
   const destroySocket = () => {
     const _socket = socket.current;
+    _socket?.removeEventListener('open', socketOpenListener);
     _socket?.removeEventListener('error', socketErrorListener);
     _socket?.removeEventListener('message', socketMessageListener);
     _socket?.close();
@@ -33,20 +70,6 @@ export const useWebSocket = (id: string) => {
     destroySocket();
     initSocket();
   };
-
-  const socketErrorListener = useCallback(() => {
-    toast.custom((t) => (
-      <Notification
-        type='error'
-        className={t.visible ? 'animate-enter' : 'animate-leave'}
-        confirmText='Reconnect'
-        onConfirm={reconnect}
-        onCancel={() => toast.dismiss(t.id)}
-      >
-        Failed to connect to the server.
-      </Notification>
-    ));
-  }, []);
 
   useEffect(() => {
     initSocket();
@@ -61,5 +84,5 @@ export const useWebSocket = (id: string) => {
       socket.current?.send(JSON.stringify(position));
   };
 
-  return { list, send, reconnect };
+  return { list, send };
 };
