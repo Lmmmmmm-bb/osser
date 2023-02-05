@@ -1,5 +1,5 @@
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export const throttle = <T extends (...args: any[]) => any>(
+export const throttle = <T extends (...args: any[]) => unknown>(
   fn: T,
   wait: number
 ) => {

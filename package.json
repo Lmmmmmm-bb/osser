@@ -13,7 +13,6 @@
     "style:watch": "typed-scss-modules **/index.module.scss --watch"
   },
   "dependencies": {
-    "clsx": "^1.2.1",
     "nanoid": "^4.0.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",

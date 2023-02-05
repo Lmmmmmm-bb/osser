@@ -1,5 +1,6 @@
-import clsx from 'clsx';
 import { FC, CSSProperties } from 'react';
+
+import { classnames } from '~/utils';
 
 import styles from './index.module.scss';
 
@@ -19,7 +20,7 @@ const Input: FC<InputProps> = (props) => {
 
   return (
     <input
-      className={clsx(styles.input, className)}
+      className={classnames(styles.input, className)}
       value={value}
       onChange={handleChange}
       {...rest}
