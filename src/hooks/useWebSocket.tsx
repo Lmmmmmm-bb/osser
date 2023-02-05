@@ -16,12 +16,12 @@ export const useWebSocket = (id: string) => {
   );
 
   const socketOpenListener = useCallback(() => {
-    toast.dismiss(toastId.current);
+    toastId.current && toast.dismiss(toastId.current);
     toastId.current = undefined;
   }, []);
 
   const socketErrorListener = useCallback(() => {
-    toast.dismiss(toastId.current);
+    toastId.current && toast.dismiss(toastId.current);
     toastId.current = toast.custom((t) => (
       <Notification
         type='error'
@@ -38,7 +38,7 @@ export const useWebSocket = (id: string) => {
   }, []);
 
   const showLoadingToast = useCallback(() => {
-    toast.dismiss(toastId.current);
+    toastId.current && toast.dismiss(toastId.current);
     toastId.current = toast.custom((t) => (
       <Notification hiddenActions toast={t}>
         <div style={{ display: 'flex' }}>

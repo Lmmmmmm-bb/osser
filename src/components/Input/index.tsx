@@ -9,6 +9,7 @@ interface InputProps {
   onChange: (value: string) => void;
   className?: string;
   style?: CSSProperties;
+  placeholder?: string;
 }
 
 const Input: FC<InputProps> = (props) => {

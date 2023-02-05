@@ -1,6 +1,6 @@
 import { nanoid } from 'nanoid';
-import { Toaster } from 'react-hot-toast';
-import { FC, useRef, MouseEvent, useCallback } from 'react';
+import { toast, Toaster } from 'react-hot-toast';
+import { FC, useRef, MouseEvent, useCallback, useEffect } from 'react';
 
 import { Mouse } from '~/components';
 import { useWebSocket } from '~/hooks';
@@ -8,7 +8,8 @@ import { delay, throttle } from '~/utils';
 
 import { Position } from '../types';
 import styles from './index.module.scss';
-import { defaultPosition, toastOptions } from './config';
+import { CLIENT_NAME, defaultPosition, toastOptions } from './config';
+import NameNotification from './NameNotification';
 
 const id = nanoid();
 
@@ -41,6 +42,19 @@ const App: FC = () => {
       send({ id, ...defaultPosition });
     }, 100);
   }, [send]);
+
+  useEffect(() => {
+    let toastId: string;
+    if (!localStorage.getItem(CLIENT_NAME)) {
+      toastId = toast.custom((t) => <NameNotification toast={t} />, {
+        duration: Infinity
+      });
+    }
+
+    return () => {
+      toastId && toast.dismiss(toastId);
+    };
+  }, []);
 
   return (
     <>
