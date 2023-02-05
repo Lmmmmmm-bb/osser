@@ -1,0 +1,45 @@
+@keyframes leave {
+  0% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+
+  100% {
+    transform: translateX(calc(100% + 16px));
+    opacity: 0;
+  }
+}
+
+@keyframes enter {
+  0% {
+    transform: translateX(calc(100% + 16px));
+    opacity: 0;
+  }
+
+  60% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+
+  80% {
+    transform: translateX(-15px);
+  }
+
+  100% {
+    transform: translateX(0);
+  }
+}
+
+@keyframes loading-blink {
+  0% {
+    opacity: 0.2;
+  }
+
+  20% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0.2;
+  }
+}

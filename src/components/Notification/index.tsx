@@ -1,9 +1,11 @@
-import { FC, PropsWithChildren } from 'react';
+import { CSSProperties, FC, PropsWithChildren } from 'react';
 import { classnames } from '~/utils';
 
 import styles from './index.module.scss';
 
 interface NotificationProps {
+  className?: string;
+  style?: CSSProperties;
   type?: 'default' | 'error';
   confirmText?: string;
   cancelText?: string;
@@ -14,6 +16,8 @@ interface NotificationProps {
 const Notification: FC<PropsWithChildren<NotificationProps>> = (props) => {
   const {
     children,
+    style,
+    className,
     type = 'default',
     confirmText = 'Confirm',
     cancelText = 'Cancel',
@@ -23,7 +27,12 @@ const Notification: FC<PropsWithChildren<NotificationProps>> = (props) => {
 
   return (
     <div
-      className={classnames(styles.wrapper, type === 'error' && styles.error)}
+      style={style}
+      className={classnames(
+        styles.wrapper,
+        type === 'error' && styles.error,
+        className
+      )}
     >
       <div className={styles.content}>{children}</div>
       <div className={styles.actions}>

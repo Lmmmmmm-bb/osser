@@ -8,7 +8,7 @@ import { useWebSocket } from '~/hooks';
 
 import { Position } from '../types';
 import styles from './index.module.scss';
-import { defaultPosition } from './config';
+import { defaultPosition, toastOptions } from './config';
 
 const id = nanoid();
 
@@ -54,7 +54,7 @@ const App: FC = () => {
             <Mouse key={item.id} position={item} />
           ))}
       </div>
-      <Toaster />
+      <Toaster toastOptions={toastOptions} />
     </>
   );
 };

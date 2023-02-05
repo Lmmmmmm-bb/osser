@@ -1,3 +1,5 @@
+@import './animate.scss';
+
 html,
 body {
   margin: 0;
@@ -9,4 +11,12 @@ body {
 
 #root {
   height: 100%;
+}
+
+.animate-enter {
+  animation: enter 0.4s ease-in;
+}
+
+.animate-leave {
+  animation: leave 0.3s ease-out forwards;
 }
