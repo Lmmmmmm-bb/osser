@@ -2,9 +2,9 @@ import { nanoid } from 'nanoid';
 import { Toaster } from 'react-hot-toast';
 import { FC, useRef, MouseEvent, useCallback } from 'react';
 
-import { throttle } from '~/utils';
 import { Mouse } from '~/components';
 import { useWebSocket } from '~/hooks';
+import { delay, throttle } from '~/utils';
 
 import { Position } from '../types';
 import styles from './index.module.scss';
@@ -36,9 +36,11 @@ const App: FC = () => {
     [throttledSend]
   );
 
-  const handleMouseOut = useCallback(() => {
-    throttledSend({ id, ...defaultPosition });
-  }, [throttledSend]);
+  const handleMouseLeave = useCallback(() => {
+    delay(() => {
+      send({ id, ...defaultPosition });
+    }, 100);
+  }, [send]);
 
   return (
     <>
@@ -46,7 +48,7 @@ const App: FC = () => {
         ref={wrapperRef}
         className={styles.wrapper}
         onMouseMove={handleMouseMove}
-        onMouseOut={handleMouseOut}
+        onMouseLeave={handleMouseLeave}
       >
         {list
           .filter((item) => item.id !== id)
