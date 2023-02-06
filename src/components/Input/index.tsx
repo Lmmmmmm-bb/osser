@@ -1,10 +1,10 @@
-import { FC, CSSProperties } from 'react';
+import { FC, CSSProperties, HTMLProps } from 'react';
 
 import { classnames } from '~/utils';
 
 import styles from './index.module.scss';
 
-interface InputProps {
+interface InputProps extends Omit<HTMLProps<HTMLInputElement>, 'onChange'> {
   value: string;
   onChange: (value: string) => void;
   className?: string;
