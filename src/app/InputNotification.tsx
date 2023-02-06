@@ -6,10 +6,11 @@ import { CLIENT_NAME } from './config';
 
 interface InputNotificationProps {
   toast: Toast;
+  onConfirm?: (value: string) => void;
 }
 
 const InputNotification: FC<InputNotificationProps> = (props) => {
-  const { toast: t } = props;
+  const { toast: t, onConfirm } = props;
 
   const [value, setValue] = useState(localStorage.getItem(CLIENT_NAME) || '');
 
@@ -18,7 +19,8 @@ const InputNotification: FC<InputNotificationProps> = (props) => {
   };
 
   const handleConfirm = () => {
-    localStorage.setItem(CLIENT_NAME, value.trim());
+    const _value = value.trim();
+    onConfirm?.(_value);
     toast.dismiss(t.id);
   };
 

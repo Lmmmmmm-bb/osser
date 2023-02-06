@@ -1,6 +1,13 @@
 import { nanoid } from 'nanoid';
 import { toast, Toaster } from 'react-hot-toast';
-import { FC, useRef, MouseEvent, useCallback, useEffect } from 'react';
+import {
+  FC,
+  useRef,
+  MouseEvent,
+  useCallback,
+  useEffect,
+  useState
+} from 'react';
 
 import { Mouse } from '~/components';
 import { useWebSocket } from '~/hooks';
@@ -16,6 +23,13 @@ const id = nanoid();
 const App: FC = () => {
   const wrapperRef = useRef<HTMLDivElement>(null);
   const positionRef = useRef<Position>(defaultPosition);
+  const [name, setName] = useState(() => {
+    const _name = localStorage.getItem(CLIENT_NAME) || '';
+    const limit = _name.slice(0, 20);
+    // limit name length and update to localStorage
+    localStorage.setItem(CLIENT_NAME, limit);
+    return limit;
+  });
 
   const { list, send } = useWebSocket(id);
 
@@ -25,7 +39,7 @@ const App: FC = () => {
     (e: MouseEvent<HTMLDivElement>) => {
       if (wrapperRef.current) {
         const { x, y } = wrapperRef.current.getBoundingClientRect();
-        const nextPosition = { id, x: e.clientX - x, y: e.clientY - y };
+        const nextPosition = { id, name, x: e.clientX - x, y: e.clientY - y };
         // update mouse position
         positionRef.current = nextPosition;
         wrapperRef.current.style.setProperty('--x', String(nextPosition.x));
@@ -39,16 +53,24 @@ const App: FC = () => {
 
   const handleMouseLeave = useCallback(() => {
     delay(() => {
-      send({ id, ...defaultPosition });
+      send({ id, name, ...defaultPosition });
     }, 100);
   }, [send]);
+
+  const handleNameConfirm = (value: string) => {
+    localStorage.setItem(CLIENT_NAME, value);
+    setName(value);
+  };
 
   useEffect(() => {
     let toastId: string;
     if (!localStorage.getItem(CLIENT_NAME)) {
-      toastId = toast.custom((t) => <InputNotification toast={t} />, {
-        duration: Infinity
-      });
+      toastId = toast.custom(
+        (t) => <InputNotification toast={t} onConfirm={handleNameConfirm} />,
+        {
+          duration: Infinity
+        }
+      );
     }
 
     return () => {
@@ -64,6 +86,7 @@ const App: FC = () => {
         onMouseMove={handleMouseMove}
         onMouseLeave={handleMouseLeave}
       >
+        {name && <div className={styles.label}>{name}</div>}
         {list
           .filter((item) => item.id !== id)
           .map((item) => (

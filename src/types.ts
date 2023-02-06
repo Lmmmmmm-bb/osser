@@ -5,4 +5,5 @@ export interface Position {
 
 export interface ClientPosition extends Position {
   id: string;
+  name: string;
 }
