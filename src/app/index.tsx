@@ -8,8 +8,8 @@ import { delay, throttle } from '~/utils';
 
 import { Position } from '../types';
 import styles from './index.module.scss';
+import InputNotification from './InputNotification';
 import { CLIENT_NAME, defaultPosition, toastOptions } from './config';
-import NameNotification from './NameNotification';
 
 const id = nanoid();
 
@@ -46,7 +46,7 @@ const App: FC = () => {
   useEffect(() => {
     let toastId: string;
     if (!localStorage.getItem(CLIENT_NAME)) {
-      toastId = toast.custom((t) => <NameNotification toast={t} />, {
+      toastId = toast.custom((t) => <InputNotification toast={t} />, {
         duration: Infinity
       });
     }

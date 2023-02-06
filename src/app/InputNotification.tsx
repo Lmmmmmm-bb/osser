@@ -4,11 +4,11 @@ import { Toast, toast } from 'react-hot-toast';
 import { Input, Notification } from '~/components';
 import { CLIENT_NAME } from './config';
 
-interface NameNotificationProps {
+interface InputNotificationProps {
   toast: Toast;
 }
 
-const NameNotification: FC<NameNotificationProps> = (props) => {
+const InputNotification: FC<InputNotificationProps> = (props) => {
   const { toast: t } = props;
 
   const [value, setValue] = useState(localStorage.getItem(CLIENT_NAME) || '');
@@ -33,4 +33,4 @@ const NameNotification: FC<NameNotificationProps> = (props) => {
   );
 };
 
-export default NameNotification;
+export default InputNotification;
