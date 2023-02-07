@@ -35,27 +35,29 @@ const App: FC = () => {
 
   const throttledSend = useCallback(throttle(send, 50), [send]);
 
-  const handleMouseMove = useCallback(
-    (e: MouseEvent<HTMLDivElement>) => {
-      if (wrapperRef.current) {
-        const { x, y } = wrapperRef.current.getBoundingClientRect();
-        const nextPosition = { id, name, x: e.clientX - x, y: e.clientY - y };
-        // update mouse position
-        positionRef.current = nextPosition;
-        wrapperRef.current.style.setProperty('--x', String(nextPosition.x));
-        wrapperRef.current.style.setProperty('--y', String(nextPosition.y));
-        // send mouse position
-        throttledSend(nextPosition);
-      }
-    },
-    [throttledSend]
-  );
+  const update = (position: Position) => {
+    if (wrapperRef.current) {
+      // update mouse position
+      positionRef.current = position;
+      wrapperRef.current.style.setProperty('--x', String(position.x));
+      wrapperRef.current.style.setProperty('--y', String(position.y));
+      // send mouse position
+      throttledSend({ id, name, ...position });
+    }
+  };
 
-  const handleMouseLeave = useCallback(() => {
+  const handleMouseMove = (e: MouseEvent<HTMLDivElement>) => {
+    if (wrapperRef.current) {
+      const { x, y } = wrapperRef.current.getBoundingClientRect();
+      update({ x: e.clientX - x, y: e.clientY - y });
+    }
+  };
+
+  const handleMouseLeave = () => {
     delay(() => {
       send({ id, name, ...defaultPosition });
     }, 100);
-  }, [send]);
+  };
 
   const handleNameConfirm = (value: string) => {
     localStorage.setItem(CLIENT_NAME, value);
