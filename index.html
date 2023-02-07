@@ -4,28 +4,21 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="theme-color" content="#020112" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0"
+    />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Varela+Round&display=swap"
       rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Varela+Round&display=swap"
     />
     <title>osser</title>
   </head>
 
   <body>
     <div id="root"></div>
-    <script>
-      // prevent scrolling on mobile
-      document.body.addEventListener(
-        'touchmove',
-        (e) => {
-          e.preventDefault();
-        },
-        { passive: false }
-      );
-    </script>
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>
