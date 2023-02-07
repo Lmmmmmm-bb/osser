@@ -1,5 +1,3 @@
-import { nanoid } from 'nanoid';
-import { toast, Toaster } from 'react-hot-toast';
 import {
   FC,
   useRef,
@@ -8,6 +6,8 @@ import {
   useEffect,
   useState
 } from 'react';
+import { nanoid } from 'nanoid';
+import { toast, Toaster } from 'react-hot-toast';
 
 import { Mouse } from '~/components';
 import { useWebSocket } from '~/hooks';
@@ -86,7 +86,7 @@ const App: FC = () => {
         onMouseMove={handleMouseMove}
         onMouseLeave={handleMouseLeave}
       >
-        {name && <div className={styles.label}>{name}</div>}
+        {name && <p className={styles.label}>{name}</p>}
         {list
           .filter((item) => item.id !== id)
           .map((item) => (
