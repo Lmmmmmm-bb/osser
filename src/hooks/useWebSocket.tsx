@@ -6,8 +6,9 @@ import { getWebSocketDomain } from '~/utils';
 import { Loading, Notification } from '~/components';
 
 export const useWebSocket = (id: string) => {
-  const socket = useRef<WebSocket>();
   const toastId = useRef<string>();
+  const socket = useRef<WebSocket>();
+  const [isOnline, setIsOnline] = useState(false);
   const [list, setList] = useState<ClientPosition[]>([]);
 
   const socketMessageListener = useCallback(
@@ -16,11 +17,13 @@ export const useWebSocket = (id: string) => {
   );
 
   const socketOpenListener = useCallback(() => {
+    setIsOnline(true);
     toastId.current && toast.dismiss(toastId.current);
     toastId.current = undefined;
   }, []);
 
   const socketErrorListener = useCallback(() => {
+    setIsOnline(false);
     toastId.current && toast.dismiss(toastId.current);
     toastId.current = toast.custom((t) => (
       <Notification
@@ -50,6 +53,7 @@ export const useWebSocket = (id: string) => {
   }, []);
 
   const initSocket = () => {
+    setIsOnline(false);
     const _socket = new WebSocket(`${getWebSocketDomain()}/${id}`);
     _socket.addEventListener('open', socketOpenListener);
     _socket.addEventListener('error', socketErrorListener);
@@ -84,5 +88,5 @@ export const useWebSocket = (id: string) => {
       socket.current?.send(JSON.stringify(position));
   };
 
-  return { list, send };
+  return { list, isOnline, send };
 };

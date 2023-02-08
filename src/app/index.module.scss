@@ -17,6 +17,15 @@
     cursor: default;
     z-index: 1;
     user-select: all;
+
+    .name {
+      margin-right: 6px;
+    }
+
+    .online {
+      font-size: 12px;
+      margin-left: 4px;
+    }
   }
 
   &::before {

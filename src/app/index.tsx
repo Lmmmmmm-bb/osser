@@ -10,8 +10,8 @@ import {
 import { nanoid } from 'nanoid';
 import { toast, Toaster } from 'react-hot-toast';
 
-import { Mouse } from '~/components';
 import { useWebSocket } from '~/hooks';
+import { Dot, Mouse } from '~/components';
 import { delay, throttle } from '~/utils';
 
 import { Position } from '../types';
@@ -32,7 +32,7 @@ const App: FC = () => {
     return limit;
   });
 
-  const { list, send } = useWebSocket(id);
+  const { list, isOnline, send } = useWebSocket(id);
 
   const throttledSend = useCallback(throttle(send, 50), [send]);
 
@@ -100,7 +100,13 @@ const App: FC = () => {
         onTouchStart={handleTouch}
         onTouchMove={handleTouch}
       >
-        {name && <p className={styles.label}>{name}</p>}
+        <p className={styles.label}>
+          {name && <span className={styles.name}>{name}</span>}
+          <Dot online={isOnline} />
+          {list.length !== 0 && (
+            <span className={styles.online}>{list.length} online</span>
+          )}
+        </p>
         {list
           .filter((item) => item.id !== id)
           .map((item) => (
