@@ -4,7 +4,8 @@ import {
   MouseEvent,
   useCallback,
   useEffect,
-  useState
+  useState,
+  TouchEvent
 } from 'react';
 import { nanoid } from 'nanoid';
 import { toast, Toaster } from 'react-hot-toast';
@@ -37,8 +38,9 @@ const App: FC = () => {
 
   const update = (position: Position) => {
     if (wrapperRef.current) {
+      const { x, y } = wrapperRef.current.getBoundingClientRect();
       // update mouse position
-      positionRef.current = position;
+      positionRef.current = { x: position.x - x, y: position.y - y };
       wrapperRef.current.style.setProperty('--x', String(position.x));
       wrapperRef.current.style.setProperty('--y', String(position.y));
       // send mouse position
@@ -48,13 +50,13 @@ const App: FC = () => {
 
   const handleMouseMove = (e: MouseEvent<HTMLDivElement>) => {
     if (wrapperRef.current) {
-      const { x, y } = wrapperRef.current.getBoundingClientRect();
-      update({ x: e.clientX - x, y: e.clientY - y });
+      update({ x: e.clientX, y: e.clientY });
     }
   };
 
-  const handleMouseLeave = () => {
+  const handleLeave = () => {
     delay(() => {
+      update(defaultPosition);
       send({ id, name, ...defaultPosition });
     }, 100);
   };
@@ -80,13 +82,23 @@ const App: FC = () => {
     };
   }, []);
 
+  const handleTouch = (e: TouchEvent<HTMLDivElement>) => {
+    if (wrapperRef.current) {
+      const { clientX, clientY } = e.touches[0];
+      update({ x: clientX, y: clientY });
+    }
+  };
+
   return (
     <>
       <div
         ref={wrapperRef}
         className={styles.wrapper}
         onMouseMove={handleMouseMove}
-        onMouseLeave={handleMouseLeave}
+        onMouseLeave={handleLeave}
+        onTouchEnd={handleLeave}
+        onTouchStart={handleTouch}
+        onTouchMove={handleTouch}
       >
         {name && <p className={styles.label}>{name}</p>}
         {list
