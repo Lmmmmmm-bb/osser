@@ -100,13 +100,13 @@ const App: FC = () => {
         onTouchStart={handleTouch}
         onTouchMove={handleTouch}
       >
-        <p className={styles.label}>
+        <div className={styles.label}>
           {name && <span className={styles.name}>{name}</span>}
           <Dot online={isOnline} />
           <span className={styles.online}>
             {isOnline ? `${list.length} online` : 'offline'}
           </span>
-        </p>
+        </div>
         {list
           .filter((item) => item.id !== id)
           .map((item) => (
