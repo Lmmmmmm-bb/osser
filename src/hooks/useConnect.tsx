@@ -5,7 +5,7 @@ import { ClientPosition } from '~/types';
 import { getWebSocketDomain } from '~/utils';
 import { Loading, Notification } from '~/components';
 
-export const useWebSocket = (id: string) => {
+export const useConnect = (id: string) => {
   const toastId = useRef<string>();
   const socket = useRef<WebSocket>();
   const [isOnline, setIsOnline] = useState(false);

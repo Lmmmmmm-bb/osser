@@ -10,7 +10,7 @@ import {
 import { nanoid } from 'nanoid';
 import { toast, Toaster } from 'react-hot-toast';
 
-import { useWebSocket } from '~/hooks';
+import { useConnect } from '~/hooks';
 import { Dot, Mouse } from '~/components';
 import { delay, throttle } from '~/utils';
 
@@ -32,7 +32,7 @@ const App: FC = () => {
     return limit;
   });
 
-  const { list, isOnline, send } = useWebSocket(id);
+  const { list, isOnline, send } = useConnect(id);
 
   const throttledSend = useCallback(throttle(send, 50), [send]);
 
