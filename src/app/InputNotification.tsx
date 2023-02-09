@@ -2,6 +2,7 @@ import { FC, useState } from 'react';
 import { Toast, toast } from 'react-hot-toast';
 
 import { Input, Notification } from '~/components';
+
 import { CLIENT_NAME } from './config';
 
 interface InputNotificationProps {
@@ -30,6 +31,7 @@ const InputNotification: FC<InputNotificationProps> = (props) => {
         placeholder='input a name you like'
         value={value}
         onChange={handleChange}
+        onKeyDown={(e) => e.key === 'Enter' && handleConfirm()}
       />
     </Notification>
   );
