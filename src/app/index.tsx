@@ -103,9 +103,9 @@ const App: FC = () => {
         <p className={styles.label}>
           {name && <span className={styles.name}>{name}</span>}
           <Dot online={isOnline} />
-          {list.length !== 0 && (
-            <span className={styles.online}>{list.length} online</span>
-          )}
+          <span className={styles.online}>
+            {isOnline ? `${list.length} online` : 'offline'}
+          </span>
         </p>
         {list
           .filter((item) => item.id !== id)
