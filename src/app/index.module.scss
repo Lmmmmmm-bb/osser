@@ -20,10 +20,12 @@
     .name {
       margin-right: 6px;
       user-select: all;
+      font-weight: 600;
     }
 
     .online {
       font-size: 12px;
+      font-style: italic;
       margin-left: 4px;
       user-select: none;
     }
