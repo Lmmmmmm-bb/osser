@@ -15,6 +15,7 @@ const Mouse: FC<MouseProps> = (props) => {
     <div
       id={position.id}
       className={styles.wrapper}
+      data-name={position.name}
       style={{ left: position.x, top: position.y }}
     />
   );
