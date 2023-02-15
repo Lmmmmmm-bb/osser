@@ -11,8 +11,8 @@ import { nanoid } from 'nanoid';
 import { toast, Toaster } from 'react-hot-toast';
 
 import { useConnect } from '~/hooks';
-import { Dot, Mouse } from '~/components';
 import { delay, throttle } from '~/utils';
+import { Dot, Mouse, Welcome } from '~/components';
 
 import { Position } from '../types';
 import styles from './index.module.scss';
@@ -112,6 +112,7 @@ const App: FC = () => {
           .map((item) => (
             <Mouse key={item.id} position={item} />
           ))}
+        <Welcome />
       </div>
       <Toaster toastOptions={toastOptions} />
     </>
