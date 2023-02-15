@@ -1,0 +1,24 @@
+@import '../../animate.scss';
+
+.osser {
+  margin: 0;
+  position: absolute;
+  bottom: 0;
+  color: transparent;
+  font-size: calc(40vw - 12px);
+  transform: translateY(40%);
+  opacity: 0.3;
+  z-index: 1;
+  user-select: none;
+  background-image: linear-gradient(
+    to right,
+    #020112 0%,
+    rgba(83, 44, 173, 0.5) 50%,
+    #020112 100%
+  );
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-transition: background-image 0.2s ease-in-out;
+  transition: opacity 0.2s ease-in-out;
+  animation: breath 3s ease-in-out;
+}
