@@ -1,4 +1,5 @@
 import { ToastOptions } from 'react-hot-toast';
+
 import { Position } from '~/types';
 
 export const defaultPosition: Position = {

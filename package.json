@@ -1,7 +1,7 @@
 {
   "name": "osser",
   "license": "MIT",
-  "packageManager": "pnpm@7.25.0",
+  "packageManager": "pnpm@7.27.0",
   "scripts": {
     "dev": "vite --host & pnpm style:watch",
     "build": "tsc && vite build",

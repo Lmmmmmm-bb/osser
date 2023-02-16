@@ -1,4 +1,5 @@
 import { FC, CSSProperties } from 'react';
+
 import { classnames } from '~/utils';
 
 import styles from './index.module.scss';
