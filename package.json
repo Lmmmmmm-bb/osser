@@ -1,14 +1,12 @@
 {
   "name": "osser",
-  "license": "MIT",
   "packageManager": "pnpm@7.29.3",
+  "license": "MIT",
   "scripts": {
     "dev": "vite --host & pnpm style:watch",
     "build": "tsc && vite build",
     "preview": "vite preview",
-    "lint:check": "prettier --check .",
-    "lint:format": "prettier --write .",
-    "lint:fix": "eslint --ext .tsx,.ts,.js . --fix",
+    "lint": "eslint . --fix",
     "prepare": "husky install",
     "style:watch": "typed-scss-modules **/index.module.scss --watch"
   },
@@ -21,16 +19,13 @@
     "sass": "^1.59.3"
   },
   "devDependencies": {
+    "@lmmmmmm/eslint-config": "^0.0.3",
+    "@lmmmmmm/eslint-config-react": "^0.0.3",
     "@types/node": "^18.15.3",
     "@types/react": "^18.0.28",
     "@types/react-dom": "^18.0.11",
-    "@typescript-eslint/eslint-plugin": "^5.55.0",
-    "@typescript-eslint/parser": "^5.55.0",
     "@vitejs/plugin-react": "^3.1.0",
     "eslint": "^8.36.0",
-    "eslint-config-prettier": "^8.7.0",
-    "eslint-plugin-prettier": "^4.2.1",
-    "eslint-plugin-react": "^7.32.2",
     "husky": "^8.0.3",
     "lint-staged": "^13.2.0",
     "prettier": "^2.8.4",
@@ -39,7 +34,6 @@
     "vite": "^4.2.0"
   },
   "lint-staged": {
-    "**/*": "prettier --write . --ignore-unknown",
-    "*.{js,ts,tsx}": "eslint --ext .tsx,.ts,.js . --fix"
+    "*.{js,ts,tsx}": "eslint . --fix"
   }
 }
