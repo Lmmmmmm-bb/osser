@@ -1,20 +1,22 @@
-import {
+import type {
   FC,
-  useRef,
   MouseEvent,
+  TouchEvent,
+} from 'react';
+import {
   useCallback,
   useEffect,
+  useRef,
   useState,
-  TouchEvent
 } from 'react';
 import { nanoid } from 'nanoid';
-import { toast, Toaster } from 'react-hot-toast';
+import { Toaster, toast } from 'react-hot-toast';
 
 import { useConnect } from '~/hooks';
 import { delay, throttle } from '~/utils';
 import { Dot, Mouse, Welcome } from '~/components';
 
-import { Position } from '../types';
+import type { Position } from '../types';
 import styles from './index.module.scss';
 import InputNotification from './InputNotification';
 import { CLIENT_NAME, defaultPosition, toastOptions } from './config';
@@ -34,6 +36,7 @@ const App: FC = () => {
 
   const { list, isOnline, send } = useConnect(id);
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   const throttledSend = useCallback(throttle(send, 50), [send]);
 
   const update = (position: Position) => {
@@ -70,10 +73,10 @@ const App: FC = () => {
     let toastId: string;
     if (!localStorage.getItem(CLIENT_NAME)) {
       toastId = toast.custom(
-        (t) => <InputNotification toast={t} onConfirm={handleNameConfirm} />,
+        t => <InputNotification toast={t} onConfirm={handleNameConfirm} />,
         {
-          duration: Infinity
-        }
+          duration: Infinity,
+        },
       );
     }
 
@@ -108,8 +111,8 @@ const App: FC = () => {
           </span>
         </div>
         {list
-          .filter((item) => item.id !== id)
-          .map((item) => (
+          .filter(item => item.id !== id)
+          .map(item => (
             <Mouse key={item.id} position={item} />
           ))}
         <Welcome />

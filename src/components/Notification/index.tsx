@@ -1,5 +1,6 @@
-import { Toast, toast } from 'react-hot-toast';
-import { CSSProperties, FC, PropsWithChildren } from 'react';
+import type { Toast } from 'react-hot-toast';
+import { toast } from 'react-hot-toast';
+import type { CSSProperties, FC, PropsWithChildren } from 'react';
 
 import { classnames } from '~/utils';
 
@@ -32,7 +33,7 @@ const Notification: FC<PropsWithChildren<NotificationProps>> = (props) => {
     confirmText = 'Confirm',
     cancelText = 'Cancel',
     onConfirm,
-    onCancel
+    onCancel,
   } = props;
 
   const handleCancel = () => {
@@ -46,19 +47,21 @@ const Notification: FC<PropsWithChildren<NotificationProps>> = (props) => {
         styles.wrapper,
         type === 'error' && styles.error,
         className,
-        t.visible ? 'animate-enter' : 'animate-leave'
+        t.visible ? 'animate-enter' : 'animate-leave',
       )}
     >
       <div className={styles.content}>{children}</div>
       {!hiddenActions && (
         <div className={styles.actions}>
-          {loading ? (
+          {loading
+            ? (
             <Loading className={classnames(styles.confirm, styles.loading)} />
-          ) : (
+              )
+            : (
             <button className={styles.confirm} onClick={onConfirm}>
               {confirmText}
             </button>
-          )}
+              )}
           <button onClick={handleCancel}>{cancelText}</button>
         </div>
       )}

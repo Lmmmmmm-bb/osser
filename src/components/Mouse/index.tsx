@@ -1,6 +1,6 @@
-import { FC } from 'react';
+import type { FC } from 'react';
 
-import { ClientPosition } from '~/types';
+import type { ClientPosition } from '~/types';
 
 import styles from './index.module.scss';
 

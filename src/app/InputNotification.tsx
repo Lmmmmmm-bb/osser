@@ -1,5 +1,7 @@
-import { FC, useState } from 'react';
-import { Toast, toast } from 'react-hot-toast';
+import type { FC } from 'react';
+import { useState } from 'react';
+import type { Toast } from 'react-hot-toast';
+import { toast } from 'react-hot-toast';
 
 import { Input, Notification } from '~/components';
 
@@ -26,12 +28,12 @@ const InputNotification: FC<InputNotificationProps> = (props) => {
   };
 
   return (
-    <Notification cancelText='Close' toast={t} onConfirm={handleConfirm}>
+    <Notification cancelText="Close" toast={t} onConfirm={handleConfirm}>
       <Input
-        placeholder='input a name you like'
+        placeholder="input a name you like"
         value={value}
         onChange={handleChange}
-        onKeyDown={(e) => e.key === 'Enter' && handleConfirm()}
+        onKeyDown={e => e.key === 'Enter' && handleConfirm()}
       />
     </Notification>
   );

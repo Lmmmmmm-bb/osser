@@ -1,7 +1,6 @@
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const throttle = <T extends (...args: any[]) => unknown>(
   fn: T,
-  wait: number
+  wait: number,
 ) => {
   let timeout: NodeJS.Timeout | null = null;
   return (...args: Parameters<T>) => {

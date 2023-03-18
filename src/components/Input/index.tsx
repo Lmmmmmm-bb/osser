@@ -1,4 +1,4 @@
-import { FC, CSSProperties, HTMLProps } from 'react';
+import type { CSSProperties, FC, HTMLProps } from 'react';
 
 import { classnames } from '~/utils';
 

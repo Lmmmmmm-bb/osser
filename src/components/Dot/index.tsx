@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import type { FC } from 'react';
 
 import { classnames } from '~/utils';
 
@@ -8,11 +8,11 @@ interface DotProps {
   online: boolean;
 }
 
-const Dot: FC<DotProps> = (props) => (
+const Dot: FC<DotProps> = props => (
   <div
     className={classnames(
       styles.dot,
-      props.online ? styles.online : styles.offline
+      props.online ? styles.online : styles.offline,
     )}
   />
 );

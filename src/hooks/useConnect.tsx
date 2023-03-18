@@ -1,7 +1,7 @@
 import { toast } from 'react-hot-toast';
 import { useCallback, useEffect, useRef, useState } from 'react';
 
-import { ClientPosition } from '~/types';
+import type { ClientPosition } from '~/types';
 import { getWebSocketDomain } from '~/utils';
 import { Loading, Notification } from '~/components';
 
@@ -13,7 +13,7 @@ export const useConnect = (id: string) => {
 
   const socketMessageListener = useCallback(
     (event: MessageEvent<string>) => setList(JSON.parse(event.data)),
-    []
+    [],
   );
 
   const socketOpenListener = useCallback(() => {
@@ -22,13 +22,25 @@ export const useConnect = (id: string) => {
     toastId.current = undefined;
   }, []);
 
+  const showLoadingToast = useCallback(() => {
+    toastId.current && toast.dismiss(toastId.current);
+    toastId.current = toast.custom(t => (
+      <Notification hiddenActions toast={t}>
+        <div style={{ display: 'flex' }}>
+          <span style={{ flex: 9 }}>Trying to connect to server...</span>
+          <Loading style={{ flex: 1 }} />
+        </div>
+      </Notification>
+    ));
+  }, []);
+
   const socketErrorListener = useCallback(() => {
     setIsOnline(false);
     toastId.current && toast.dismiss(toastId.current);
-    toastId.current = toast.custom((t) => (
+    toastId.current = toast.custom(t => (
       <Notification
-        type='error'
-        confirmText='Retry'
+        type="error"
+        confirmText="Retry"
         toast={t}
         onConfirm={() => {
           reconnect();
@@ -38,18 +50,7 @@ export const useConnect = (id: string) => {
         Failed to connect to server.
       </Notification>
     ));
-  }, []);
-
-  const showLoadingToast = useCallback(() => {
-    toastId.current && toast.dismiss(toastId.current);
-    toastId.current = toast.custom((t) => (
-      <Notification hiddenActions toast={t}>
-        <div style={{ display: 'flex' }}>
-          <span style={{ flex: 9 }}>Trying to connect to server...</span>
-          <Loading style={{ flex: 1 }} />
-        </div>
-      </Notification>
-    ));
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const initSocket = () => {
@@ -70,10 +71,10 @@ export const useConnect = (id: string) => {
     _socket?.close();
   };
 
-  const reconnect = () => {
+  function reconnect() {
     destroySocket();
     initSocket();
-  };
+  }
 
   useEffect(() => {
     initSocket();
@@ -81,11 +82,12 @@ export const useConnect = (id: string) => {
     return () => {
       destroySocket();
     };
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const send = (position: ClientPosition) => {
-    socket.current?.readyState === WebSocket.OPEN &&
-      socket.current?.send(JSON.stringify(position));
+    socket.current?.readyState === WebSocket.OPEN
+      && socket.current?.send(JSON.stringify(position));
   };
 
   return { list, isOnline, send };
