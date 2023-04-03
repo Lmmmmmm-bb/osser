@@ -1,6 +1,6 @@
 {
   "name": "osser",
-  "packageManager": "pnpm@7.29.3",
+  "packageManager": "pnpm@8.1.0",
   "license": "MIT",
   "scripts": {
     "dev": "vite --host & pnpm style:watch",
@@ -12,26 +12,26 @@
   },
   "dependencies": {
     "@vercel/analytics": "^0.1.11",
-    "nanoid": "^4.0.1",
+    "nanoid": "^4.0.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-hot-toast": "^2.4.0"
   },
   "devDependencies": {
-    "@lmmmmmm/eslint-config": "^0.0.3",
-    "@lmmmmmm/eslint-config-react": "^0.0.3",
-    "@types/node": "^18.15.3",
-    "@types/react": "^18.0.28",
+    "@lmmmmmm/eslint-config": "^0.1.0",
+    "@lmmmmmm/eslint-config-react": "^0.1.0",
+    "@types/node": "^18.15.11",
+    "@types/react": "^18.0.31",
     "@types/react-dom": "^18.0.11",
     "@vitejs/plugin-react": "^3.1.0",
-    "eslint": "^8.36.0",
+    "eslint": "^8.37.0",
     "husky": "^8.0.3",
     "lint-staged": "^13.2.0",
-    "prettier": "^2.8.4",
-    "sass": "^1.59.3",
+    "prettier": "^2.8.7",
+    "sass": "^1.60.0",
     "typed-scss-modules": "^7.1.0",
-    "typescript": "^5.0.2",
-    "vite": "^4.2.0"
+    "typescript": "^5.0.3",
+    "vite": "^4.2.1"
   },
   "lint-staged": {
     "*.{js,ts,tsx}": "eslint . --fix"
