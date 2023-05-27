@@ -1,6 +1,6 @@
 {
   "name": "osser",
-  "packageManager": "pnpm@8.1.0",
+  "packageManager": "pnpm@8.5.1",
   "license": "MIT",
   "scripts": {
     "dev": "vite --host & pnpm style:watch",
@@ -11,28 +11,28 @@
     "style:watch": "typed-scss-modules **/index.module.scss --watch"
   },
   "dependencies": {
-    "@vercel/analytics": "^0.1.11",
+    "@vercel/analytics": "^1.0.1",
     "nanoid": "^4.0.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-hot-toast": "^2.4.0"
+    "react-hot-toast": "^2.4.1"
   },
   "devDependencies": {
-    "@lmmmmmm/eslint-config": "^0.1.0",
-    "@lmmmmmm/eslint-config-react": "^0.1.0",
-    "@types/node": "^18.15.11",
-    "@types/react": "^18.0.31",
-    "@types/react-dom": "^18.0.11",
-    "@vitejs/plugin-react": "^3.1.0",
-    "eslint": "^8.37.0",
+    "@lmmmmmm/eslint-config": "^0.3.0",
+    "@lmmmmmm/eslint-config-react": "^0.3.0",
+    "@types/node": "^18.16.16",
+    "@types/react": "^18.2.7",
+    "@types/react-dom": "^18.2.4",
+    "@vitejs/plugin-react": "^4.0.0",
+    "eslint": "^8.41.0",
     "husky": "^8.0.3",
-    "lint-staged": "^13.2.0",
-    "prettier": "^2.8.7",
+    "lint-staged": "^13.2.2",
+    "prettier": "^2.8.8",
     "rollup-plugin-visualizer": "^5.9.0",
-    "sass": "^1.60.0",
+    "sass": "^1.62.1",
     "typed-scss-modules": "^7.1.0",
-    "typescript": "^5.0.3",
-    "vite": "^4.2.1"
+    "typescript": "^5.0.4",
+    "vite": "^4.2.3"
   },
   "lint-staged": {
     "*.{js,ts,tsx}": "eslint . --fix"
